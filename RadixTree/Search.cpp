@@ -3,15 +3,15 @@
 #include <cstring>
 #include"RadixTree.h"
 #include"Search.h"
-int Search::prefix(char* key, int n, char* x, int m) {
+int Search::prefix(char* x, int n, char* key, int m) {
 	//找x和key的公共前缀
 	for (int k = 0; k<n; k++)
-		if (k == m || key[k] != x[k])
+		if (k == m || x[k] != key[k])
 			return k;
 	return n;
 }
 Node* Search::find(Node* t, char* x, int n) {
-	if (!n) n = strlen(x) + 1;
+	if (!n) n = strlen(x);
 	if (!t) return NULL;
 	int k = prefix(x, n, t->key, t->len);
 	if (k == 0) return find(t->brother, x, n); //继续寻找兄弟节点
@@ -31,7 +31,7 @@ void Search::split(Node* t, int k) {
 	t->len = k;
 }
 Node* Search::insert(Node* t, char* x, int n) {
-	if (!n) n = strlen(x) + 1;
+	if (!n) n = strlen(x) ;
 	if (!t) return new Node(x, n);
 	int k = prefix(x, n, t->key, t->len);
 	if (k == 0) t->brother = insert(t->brother, x, n);
