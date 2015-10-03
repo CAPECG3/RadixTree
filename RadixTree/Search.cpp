@@ -15,7 +15,7 @@ Node* Search::find(Node* t, char* x, int n) {
 	if (!t) return NULL;
 	int k = prefix(x, n, t->key, t->len);
 	if (k == 0) return find(t->brother, x, n); //继续寻找兄弟节点
-	if (k == n) return t;
+	if (k == n && k == t->len) return t;
 	if (k == t->len) return find(t->child, x + k, n - k); // 前缀匹配成功,寻找孩子节点
 	return NULL;
 }
