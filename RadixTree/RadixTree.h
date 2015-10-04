@@ -15,7 +15,8 @@ struct Node {
 	Node() :key(NULL), len(0), child(NULL), brother(NULL) {};
 	Node(char *x, int n) :len(n), child(NULL), brother(NULL) {
 		key = new char[n];
-		strncpy(key, x, n);
+		strncpy(key, x - n, n);
+		key = key + n;
 	}
 	~Node() {
 		delete[] key;
