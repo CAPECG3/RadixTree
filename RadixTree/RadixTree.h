@@ -1,11 +1,6 @@
 #ifndef _RADIX_TREE_
 #define _RADIX_TREE_
-#include <cstdlib>
-#include <cstdio>
-#include <cstring>
-#include <fstream>
-#include <string>
-#include <map>
+#include<iostream>
 using namespace std;
 struct Node {
 	int len; //当前结点string的长度+1，+1可以判断
@@ -16,9 +11,6 @@ struct Node {
 	Node() :key(NULL), len(0), child(NULL), brother(NULL),leaf(true) {};
 	Node(char *x, int n) :len(n), child(NULL), brother(NULL),leaf(true) {
 		key = x;
-	}
-	~Node() {
-		delete[] key;
 	}
 };
 #endif

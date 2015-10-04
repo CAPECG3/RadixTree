@@ -1,6 +1,4 @@
-#include <cstdlib>
-#include <cstdio>
-#include <cstring>
+#include<fstream>
 #include"RadixTree.h"
 #include"Search.h"
 #define STR_TOTAL_LEN 1000000000
