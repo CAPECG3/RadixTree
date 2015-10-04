@@ -12,8 +12,9 @@ struct Node {
 	char *key; //当前结点的string
 	Node* child; //孩子节点
 	Node* brother; //下一个兄弟节点
-	Node() :key(NULL), len(0), child(NULL), brother(NULL) {};
-	Node(char *x, int n) :len(n), child(NULL), brother(NULL) {
+	bool leaf;
+	Node() :key(NULL), len(0), child(NULL), brother(NULL),leaf(true) {};
+	Node(char *x, int n) :len(n), child(NULL), brother(NULL),leaf(true) {
 		key = new char[n];
 		strncpy(key, x - n, n);
 		key = key + n;
