@@ -3,6 +3,7 @@
 #include <cstring>
 #include"RadixTree.h"
 #include"Search.h"
+#define STR_TOTAL_LEN 1000000000
 int Search::prefix(char* x, int n, char* key, int m) {
 	//找x和key的公共后缀
 	int k = 0;
@@ -52,12 +53,16 @@ Node* Search::insert(Node* t, char* x, int n) {
 }
 void Search::trieCheck(ifstream &fpStrPool, ifstream &fpCheckedStr, ofstream &fpResult) {
 	Node *root = new Node();
-	char s[320];
-	while (fpStrPool >> s) {
-		int len = strlen(s);
-		insert(root, s+len, len);
+	char *memPool = new char[STR_TOTAL_LEN];
+	fill(memPool, memPool + STR_TOTAL_LEN, 0);
+	int strLen = 0;
+	while (fpStrPool >> (memPool + strLen)) {
+		int len = strlen((memPool + strLen));
+		insert(root, memPool + strLen + len, len);
+		strLen += len;
 	}
 	int yesCount = 0; //统计yes的个数
+	char s[320];
 	while (fpCheckedStr >> s) {
 		int len = strlen(s);
 		if (!find(root, s + len, len)) {
