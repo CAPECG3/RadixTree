@@ -8,7 +8,7 @@ private:
 	void split(Node* t, int k); //当前key和当前结点有公共节点,需要分割节点
 	Node* insert(Node* t, char* x, int n = 0);
 public:
-	void trieCheck(ifstream &fpStrPool, ifstream &fpCheckedStr, ofstream &fpResult);
+	void trieCheck(FILE *fpStrPool, FILE *fpCheckedStr, FILE *fpResult);
 
 };
 #endif

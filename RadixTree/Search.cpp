@@ -52,23 +52,25 @@ Node* Search::insert(Node* t, char* x, int n) {
 	}
 	return t;
 }
-void Search::trieCheck(ifstream &fpStrPool, ifstream &fpCheckedStr, ofstream &fpResult) {
+void Search::trieCheck(FILE *fpStrPool, FILE *fpCheckedStr, FILE *fpResult) {
 	Node *root = new Node();
 	char s[320];
-	while (fpStrPool >> s) {
+	while (!feof(fpStrPool)) {
+		fscanf(fpStrPool, "%s", s);
 		int len = strlen(s);
 		insert(root, s+len, len);
 	}
 	int yesCount = 0; //统计yes的个数
-	while (fpCheckedStr >> s) {
+	while (!feof(fpCheckedStr)) {
+		fscanf(fpCheckedStr, "%s", s);
 		int len = strlen(s);
 		if (!find(root, s + len, len)) {
-			fpResult << "no" << endl;
+			fprintf(fpResult, "no\n");
 		}
 		else {
 			yesCount++;
-			fpResult << "yes" << endl;
+			fprintf(fpResult, "yes\n");
 		}
 	}
-	fpResult << "nums of 'yes':" << yesCount << endl;
+	fprintf(fpResult, "nums of 'yes':%d\n", yesCount);
 }

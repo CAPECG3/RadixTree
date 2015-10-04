@@ -1,4 +1,4 @@
-#include<iostream>
+#include<cstdio>
 #include<string>
 #include<fstream>
 #include<ctime>
@@ -9,15 +9,12 @@ using namespace std;
 
 
 int main(int argc, char *argv[]) {
-	ifstream fpStrPool(argv[1]);
-	ifstream fpCheckedStr(argv[2]);
-	ofstream fpResult(argv[3]);
+	FILE *fpStrPool = fopen(argv[1], "r");
+	FILE *fpCheckedStr = fopen(argv[2], "r");
+	FILE *fpResult = fopen(argv[3], "w");
 	clock_t begin = clock();
 	Search t;
 	t.trieCheck(fpStrPool,fpCheckedStr,fpResult);
 	clock_t end = clock();
-	fpResult << (double)(end - begin) / CLOCKS_PER_SEC;
-	fpResult << "s" << endl;
-	fpResult << "------------------trieend---------------------- " ;
-
+	fprintf(fpResult, "%fs\n", (double)(end - begin) / CLOCKS_PER_SEC);
 }
