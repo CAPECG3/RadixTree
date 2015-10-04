@@ -37,12 +37,18 @@ Node* Search::insert(Node* t, char* x, int n) {
 	if (!t) return new Node(x, n);
 	int k = prefix(x, n, t->key, t->len);
 	if (k == 0) t->brother = insert(t->brother, x, n);
-	else if (k<n)
+	else if (k<=n)
 	{
 		if (k < t->len) {
 			split(t, k);
 		}
-		t->child = insert(t->child, x - k, n - k);
+		if (k == n) {
+			//此判断的意思是新加入string即是trie树已经存在的非叶节点
+			t->leaf = true;
+		}
+		else {
+			t->child = insert(t->child, x - k, n - k);
+		}
 	}
 	return t;
 }
