@@ -23,7 +23,7 @@ Node* Search::find(Node* t, char* x, int n) {
 }
 void Search::split(Node* t, int k) {
 	//当前key和当前结点有公共后缀,需要分割节点
-	Node* p = new Node(t->key-t->len, t->len - k);
+	Node* p = new Node(t->key - k, t->len - k);
 	p->child = t->child;
 	t->child = p;
 	char* a = new char[k];
