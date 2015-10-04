@@ -3,6 +3,8 @@
 #include <cstring>
 #include"RadixTree.h"
 #include"Search.h"
+#define STR_LEN 320
+#define CHAR_BIT 8
 int Search::prefix(char* x, int n, char* key, int m) {
 	//找x和key的公共后缀
 	int k = 0;
@@ -48,15 +50,28 @@ Node* Search::insert(Node* t, char* x, int n) {
 }
 void Search::trieCheck(ifstream &fpStrPool, ifstream &fpCheckedStr, ofstream &fpResult) {
 	Node *root = new Node();
-	char s[320];
+	char s[STR_LEN];
+	char binary[CHAR_BIT * STR_LEN + 1] = { 0 };
 	while (fpStrPool >> s) {
 		int len = strlen(s);
-		insert(root, s+len, len);
+		fill(binary, binary + CHAR_BIT*STR_LEN + 1, 0);
+		for (int j = 0; j < len; j++) {
+			for (int i = 0; i < CHAR_BIT; ++i) {
+				binary[j*CHAR_BIT + 7 - i] = ((s[j] >> i) & 1) + '0';
+			}
+		}
+		insert(root, binary + len*CHAR_BIT, len*CHAR_BIT);
 	}
 	int yesCount = 0; //统计yes的个数
 	while (fpCheckedStr >> s) {
+		char binary[CHAR_BIT * STR_LEN + 1] = { 0 };
 		int len = strlen(s);
-		if (!find(root, s + len, len)) {
+		for (int j = 0; j < len; j++) {
+			for (int i = 0; i < CHAR_BIT; ++i) {
+				binary[j*CHAR_BIT + 7 - i] = ((s[j] >> i) & 1) + '0';
+			}
+		}
+		if (!find(root, binary + len*CHAR_BIT, CHAR_BIT*len)) {
 			fpResult << "no" << endl;
 		}
 		else {
