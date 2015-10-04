@@ -26,7 +26,6 @@ void Search::split(Node* t, int k) {
 	Node* p = new Node();
 	p->key = t->key - k;
 	p->len = t->len - k;
-	//Node* p = new Node(t->key - k, t->len - k);
 	p->child = t->child;
 	t->child = p;
 	t->len = k;
